@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 5130222573402271083}
   m_Layer: 0
   m_Name: Block_2
-  m_TagString: Untagged
+  m_TagString: bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 7962798642805875019}
   m_Layer: 0
   m_Name: Tetromino_S
-  m_TagString: Untagged
+  m_TagString: bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
