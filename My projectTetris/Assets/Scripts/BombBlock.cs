@@ -2,17 +2,35 @@ using UnityEngine;
 
 public class BombBlock : MonoBehaviour
 {
-    // 爆弾が破裂する範囲（例えば、3x3の範囲）
-    public float explosionRadius = 1.5f;
-    public LayerMask blockLayer;
-
-    void OnDestroy()
+    // 爆弾が破裂する範囲
+    public void Explode(int explosionRadius)
     {
-        // 爆発効果を発動
-        Collider[] blocksToDestroy = Physics.OverlapSphere(transform.position, explosionRadius, blockLayer);
-        foreach (Collider block in blocksToDestroy)
+        GameManager gameManager = FindObjectOfType<GameManager>();
+
+        if (gameManager == null)
         {
-            Destroy(block.gameObject);
+            Debug.LogWarning("GameManager not found");
+            return;
+        }
+
+        Vector2 pos = gameManager.Round(transform.position);
+
+        // 指定された範囲のブロックを削除する
+        for (int x = (int)pos.x - explosionRadius; x <= (int)pos.x + explosionRadius; x++)
+        {
+            for (int y = (int)pos.y - explosionRadius; y <= (int)pos.y + explosionRadius; y++)
+            {
+                // グリッド内かどうか確認
+                if (x >= 0 && x < GameManager.width && y >= 0 && y < GameManager.height)
+                {
+                    // ブロックが存在する場合削除
+                    if (gameManager.grid[x, y] != null)
+                    {
+                        Destroy(gameManager.grid[x, y].gameObject);
+                        gameManager.grid[x, y] = null;
+                    }
+                }
+            }
         }
     }
 }
